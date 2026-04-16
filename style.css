@@ -1,0 +1,136 @@
+:root {
+    --netflix-red: #e50914;
+    --dark-bg: #141414;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--dark-bg);
+    overflow-x: hidden;
+}
+
+
+.row-section {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.row-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider-container {
+    position: relative;
+}
+
+.movie-row {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 12px;
+    padding: 10px 0 20px 0;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.movie-row::-webkit-scrollbar {
+    display: none;
+}
+
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.slider-btn:hover {
+    background: rgba(229, 9, 20, 0.9);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-btn.left  { left: -10px; border-radius: 0 6px 6px 0; }
+.slider-btn.right { right: -10px; border-radius: 6px 0 0 6px; }
+
+.row-section:hover .slider-btn {
+    opacity: 1;
+}
+
+.movie-card {
+    position: relative;
+    min-width: 220px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 8px;
+    height: 330px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    transition: all 0.4s;
+}
+
+.movie-card:hover img {
+    transform: scale(1.08);
+}
+
+.movie-card:hover {
+    z-index: 25;
+}
+
+.movie-info {
+    padding: 10px 4px 0;
+    text-align: center;
+}
+
+.movie-info h6 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-actions {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.movie-card:hover .card-actions {
+    opacity: 1;
+    bottom: 70px;
+}
+#heroBanner {
+    transition: background-image 0.8s ease-in-out;
+    background-size: 110%; /* 100% normaldır, 120% isə böyüdülmüş */
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 75vh; /* Hündürlüyün kifayət qədər olduğundan əmin ol */
+}

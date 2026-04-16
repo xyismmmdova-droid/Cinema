@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-FLIX PRO | Premium Streaming</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black text-white">
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="mainNav">
+        <div class="container-fluid px-4 px-md-5">
+            <a class="navbar-brand fw-bold text-danger fs-2" href="#" onclick="window.location.reload()">M-FLIX</a>
+            
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="fas fa-bars text-white fs-3"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link text-white active" href="#" onclick="showHome()">Ana Səhifə</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#" onclick="showMovies()">Filmlər</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#" onclick="showTVShows()">Seriallar</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="showFavoritesPage()">
+                            Sevimlilərim <span id="favBadge" class="badge bg-danger rounded-pill">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <form class="d-flex search-box mt-3 mt-lg-0" id="searchForm">
+                    <input class="form-control me-2 bg-dark text-white border-secondary shadow-none" 
+                           type="search" id="searchInput" placeholder="Film və ya serial axtar..." autocomplete="off">
+                    <button class="btn btn-outline-danger" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <header class="banner" id="heroBanner">
+        <div class="banner-content container-fluid px-4 px-md-5">
+            <h1 id="bannerTitle" class="display-3 fw-bold mb-3">Yüklənir...</h1>
+            <div class="banner-buttons mb-4">
+                <button class="btn btn-light btn-lg me-3 px-5 py-2 fw-bold" id="playBtn">
+                    <i class="fas fa-play me-2"></i> İndi Oynat
+                </button>
+                <button class="btn btn-secondary btn-lg px-5 py-2 fw-bold bg-opacity-50" id="infoBtn">
+                    <i class="fas fa-info-circle me-2"></i> Ətraflı məlumat
+                </button>
+            </div>
+            <p id="bannerDesc" class="banner-desc col-12 col-md-6"></p>
+        </div>
+        <div class="banner-fade"></div>
+    </header>
+
+    <main class="container-fluid px-4 px-md-5 mt-n5 position-relative z-2">
+        
+        <div id="loader" class="text-center py-5 d-none">
+            <div class="spinner-border text-danger" role="status"></div>
+        </div>
+
+        <div id="alertBox" class="alert alert-danger d-none mt-3" role="alert"></div>
+
+        <section class="row-section position-relative" id="trendingRow">
+            <h3 class="row-title">Bu həftə trenddə</h3>
+            <div class="movie-row" id="trendingList"></div>
+        </section>
+
+        <section class="row-section position-relative" id="popularMoviesRow">
+            <h3 class="row-title">Populyar Filmlər</h3>
+            <div class="movie-row" id="popularMoviesList"></div>
+        </section>
+
+        <section class="row-section position-relative" id="nowPlayingRow">
+            <h3 class="row-title">İndi Göstərilənlər</h3>
+            <div class="movie-row" id="nowPlayingList"></div>
+        </section>
+
+        <section class="row-section position-relative" id="popularTVRow">
+            <h3 class="row-title">Populyar Seriallar</h3>
+            <div class="movie-row" id="popularTVList"></div>
+        </section>
+
+        <section class="row-section d-none position-relative" id="favSection">
+            <h3 class="row-title text-danger">Mənim Sevimlilərim</h3>
+            <div class="movie-row" id="favoritesList"></div>
+        </section>
+    </main>
+
+    <div class="modal fade" id="movieModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-dark border-0">
+                <div class="modal-body p-0 position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3 shadow-none" data-bs-dismiss="modal"></button>
+                    
+                    <div class="ratio ratio-16x9 d-none" id="trailerBox">
+                        <iframe id="trailerVideo" src="" allowfullscreen allow="autoplay"></iframe>
+                    </div>
+
+                    <div class="p-4 p-md-5" id="modalDetails">
+                        <div class="row g-4">
+                            <div class="col-md-4 text-center">
+                                <img id="modalImg" src="" class="img-fluid rounded shadow-lg" alt="Poster">
+                            </div>
+                            <div class="col-md-8">
+                                <h2 id="modalTitle" class="fw-bold mb-3"></h2>
+                                <p id="modalOverview" class="fs-5 text-secondary lh-base"></p>
+                                <div class="mt-4 d-flex align-items-center flex-wrap gap-3">
+                                    <span class="text-success fw-bold fs-5" id="modalRating"></span>
+                                    <span class="text-white-50" id="modalDate"></span>
+                                    <span class="badge bg-danger text-uppercase p-2" id="modalLang"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="actionToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto shadow-none" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
